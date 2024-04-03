@@ -3,7 +3,7 @@ import proflePic from "../../assets/logo.jpg";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuthContext from "../../hooks/useAuthContext";
 import Swal from "sweetalert2";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
@@ -188,21 +188,14 @@ const Register = () => {
                     </svg>
                     <span className="ml-">Sign Up</span>
                   </button>
-                  <p className="mt-6 text-xs text-gray-600 text-center">
-                    I agree to abide by Cartesian Kinetics
-                    <a
-                      href="#"
-                      className="border-b border-gray-500 border-dotted"
+                  <p className="mt-6  text-gray-600 text-center">
+                    Already have an account{" "}
+                    <Link
+                      className="underline font-semibold text-blue-400"
+                      to={"/Login"}
                     >
-                      Terms of Service
-                    </a>
-                    and its
-                    <a
-                      href="#"
-                      className="border-b border-gray-500 border-dotted"
-                    >
-                      Privacy Policy
-                    </a>
+                      Login
+                    </Link>
                   </p>
                 </form>
               </div>

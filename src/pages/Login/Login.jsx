@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import proflePic from "../../assets/logo.jpg";
 import useAuthContext from "../../hooks/useAuthContext";
 import Swal from "sweetalert2";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
@@ -96,7 +96,7 @@ const Login = () => {
                   />
                   {errors.password?.type === "required" && (
                     <p className="text-red-400 font-bold" role="alert">
-                      Please set strong password
+                      Please fill password
                     </p>
                   )}
                   {error && <p className="text-red-400 font-bold">{error}</p>}
@@ -115,21 +115,14 @@ const Login = () => {
                     </svg>
                     <span className="ml-">Sign In</span>
                   </button>
-                  <p className="mt-6 text-xs text-gray-600 text-center">
-                    I agree to abide by Cartesian Kinetics
-                    <a
-                      href="#"
-                      className="border-b border-gray-500 border-dotted"
+                  <p className="mt-6  text-gray-600 text-center">
+                    don`t have account{" "}
+                    <Link
+                      className="underline font-semibold text-blue-400"
+                      to={"/register"}
                     >
-                      Terms of Service
-                    </a>
-                    and its
-                    <a
-                      href="#"
-                      className="border-b border-gray-500 border-dotted"
-                    >
-                      Privacy Policy
-                    </a>
+                      Register
+                    </Link>
                   </p>
                 </form>
               </div>
