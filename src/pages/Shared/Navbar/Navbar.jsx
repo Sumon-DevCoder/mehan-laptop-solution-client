@@ -1,0 +1,86 @@
+import { NavLink } from "react-router-dom";
+import brandLogo from "../../../assets/logo.jpg";
+
+const Navbar = () => {
+  const navLinks = (
+    <>
+      <li>
+        <NavLink to={"/"}>Home</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/login"}>Login</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/register"}>Register</NavLink>
+      </li>
+    </>
+  );
+
+  return (
+    <div>
+      <nav className="bg-gray-400 border-gray-200 dark:bg-gray-900">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+          <a
+            href="https://flowbite.com/"
+            className="flex items-center space-x-1 rtl:space-x-reverse"
+          >
+            <img src={brandLogo} className="h-6" alt="Flowbite Logo" />
+            <span className="self-center text-2xl text-green-900  font-bold whitespace-nowrap dark:text-white">
+              MEHAN LAPTOP SOLUTION
+            </span>
+          </a>
+          <button
+            data-collapse-toggle="navbar-default"
+            type="button"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-default"
+            aria-expanded="false"
+          >
+            <span className="sr-only">Open main menu</span>
+            <svg
+              className="w-5 h-5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 17 14"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M1 1h15M1 7h15M1 13h15"
+              />
+            </svg>
+          </button>
+          <div className="hidden w-full md:block md:w-auto" id="navbar-default">
+            <ul className="font-bold text-lg flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+              {navLinks}
+            </ul>
+          </div>
+          <details className="dropdown">
+            <summary className="">
+              <div className="avatar">
+                <div className="w-10 mask mask-circle">
+                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </div>
+              </div>
+        </summary>
+            <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+              <div className="avatar">
+                <div className="w-24 mask mask-squircle">
+                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </div>
+              </div>
+              <li>
+                <a>Item 2</a>
+              </li>
+            </ul>
+          </details>
+        </div>
+      </nav>
+    </div>
+  );
+};
+
+export default Navbar;
