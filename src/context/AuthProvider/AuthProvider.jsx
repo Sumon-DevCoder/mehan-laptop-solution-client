@@ -4,6 +4,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
   updateProfile,
 } from "firebase/auth";
 import PropTypes from "prop-types";
@@ -28,7 +29,7 @@ const AuthProvider = ({ children }) => {
   };
   const logOut = () => {
     setLoading(true);
-    return logOut(auth);
+    return signOut(auth);
   };
   const signInWithGoogle = () => {
     setLoading(true);

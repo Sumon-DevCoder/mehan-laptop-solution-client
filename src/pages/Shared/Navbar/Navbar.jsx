@@ -1,18 +1,49 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import brandLogo from "../../../assets/logo.jpg";
+import useAuthContext from "./../../../hooks/useAuthContext";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, logOut } = useAuthContext();
+
+  const signOut = () => {
+    return logOut()
+      .then(() => {
+        // alert
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "logOut Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((error) => console.log(error.message));
+  };
+
   const navLinks = (
     <>
       <li>
         <NavLink to={"/"}>Home</NavLink>
       </li>
-      <li>
-        <NavLink to={"/login"}>Login</NavLink>
-      </li>
-      <li>
-        <NavLink to={"/register"}>Register</NavLink>
-      </li>
+
+      {user ? (
+        <Link to={"/dashboard/myCarts"}>
+          <button className="btn">
+            Inbox
+            <div className="badge badge-secondary">+99</div>
+          </button>
+        </Link>
+      ) : (
+        <>
+          <li>
+            <NavLink to={"/login"}>Login</NavLink>
+          </li>
+          <li>
+            <NavLink to={"/register"}>Register</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
@@ -58,25 +89,28 @@ const Navbar = () => {
               {navLinks}
             </ul>
           </div>
-          <details className="dropdown">
-            <summary className="">
-              <div className="avatar">
-                <div className="w-10 mask mask-circle">
-                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+          {user ? (
+            <details className="dropdown">
+              <summary className="m-1 btn">open or close</summary>
+              <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                <div className="avatar">
+                  <div className="w-24 rounded-full">
+                    <img src={user?.photoURL} />
+                  </div>
                 </div>
-              </div>
-        </summary>
-            <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-              <div className="avatar">
-                <div className="w-24 mask mask-squircle">
-                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                </div>
-              </div>
-              <li>
-                <a>Item 2</a>
-              </li>
-            </ul>
-          </details>
+                <li>{user?.displayName}</li>
+                <li>{user?.displayName}</li>
+                <li>
+                  <button onClick={signOut}>LogOut</button>
+                </li>
+              </ul>
+            </details>
+          ) : (
+            <Link to={"/login"}>
+              {" "}
+              <button className="btn btn-primary btn-sm">Login</button>
+            </Link>
+          )}
         </div>
       </nav>
     </div>
