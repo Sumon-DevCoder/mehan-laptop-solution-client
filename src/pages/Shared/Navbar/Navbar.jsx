@@ -2,9 +2,13 @@ import { Link, NavLink } from "react-router-dom";
 import brandLogo from "../../../assets/logo.jpg";
 import useAuthContext from "./../../../hooks/useAuthContext";
 import Swal from "sweetalert2";
+import useCarts from "../../../hooks/useCarts";
+import useAdmin from "../../../hooks/useAdmin";
 
 const Navbar = () => {
   const { user, logOut } = useAuthContext();
+  const [carts, refetch] = useCarts();
+  const [isAdmin] = useAdmin();
 
   const signOut = () => {
     return logOut()
@@ -21,19 +25,39 @@ const Navbar = () => {
       .catch((error) => console.log(error.message));
   };
 
+  refetch();
+
   const navLinks = (
     <>
       <li>
         <NavLink to={"/"}>Home</NavLink>
       </li>
+      <li>
+        <NavLink to={"/laptop"}>Laptop</NavLink>
+      </li>
+
+      {user && isAdmin && (
+        <li>
+          <NavLink to={"/dashboard/adminHome"}>Dashboard</NavLink>
+        </li>
+      )}
+      {user && !isAdmin && (
+        <li>
+          <NavLink to={"/dashboard/userHome"}>Dashboard</NavLink>
+        </li>
+      )}
 
       {user ? (
-        <Link to={"/dashboard/myCarts"}>
-          <button className="btn">
-            Inbox
-            <div className="badge badge-secondary">+99</div>
-          </button>
-        </Link>
+        <>
+          <li>
+            <Link to={"/dashboard/myCarts"}>
+              <button className="btn">
+                Inbox
+                <div className="badge badge-secondary">+{carts.length}</div>
+              </button>
+            </Link>
+          </li>
+        </>
       ) : (
         <>
           <li>
@@ -85,7 +109,7 @@ const Navbar = () => {
             </svg>
           </button>
           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul className="font-bold text-lg flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <ul className="font-medium text-md uppercase flex flex-col items-center p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               {navLinks}
             </ul>
           </div>
@@ -98,7 +122,6 @@ const Navbar = () => {
                     <img src={user?.photoURL} />
                   </div>
                 </div>
-                <li>{user?.displayName}</li>
                 <li>{user?.displayName}</li>
                 <li>
                   <button onClick={signOut}>LogOut</button>
